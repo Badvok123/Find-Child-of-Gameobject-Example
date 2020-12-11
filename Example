@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoostActivate : MonoBehaviour
+{
+    PlayerMove playerMove;
+    GameObject normalLight;
+    GameObject boostLight;
+
+    private void Start()
+    {
+        playerMove = FindObjectOfType<PlayerMove>();
+        normalLight = playerMove.transform.Find("NormalPointLight").gameObject;       // need the .gameObject at the end to switch it from transform to gameobject
+        boostLight = playerMove.transform.Find("BoostPointLight ").gameObject;
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.tag == "Player")
+        {
+            Debug.Log("Ghost/boost hit registered");
+            normalLight.SetActive(false);
+            boostLight.SetActive(true);
+        }
+    }
+}
